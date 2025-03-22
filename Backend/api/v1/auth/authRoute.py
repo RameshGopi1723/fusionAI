@@ -10,6 +10,7 @@ from core.db.database import get_db
 from api.v1.auth.authSchema import UserResponse, UserCreate
 from utils.dependency.decorators import Protected_Route
 
+
 # OAuth2 password bearer token
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
 
@@ -38,6 +39,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     Login to get an access token.
     """
     auth_service = AuthService(db)
+
     try:
         user = auth_service.authenticate_user(form_data.username, form_data.password)
         if not user:
@@ -46,11 +48,18 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
                 detail="Incorrect username or password",
                 headers={"WWW-Authenticate": "Bearer"},
             )
+
         access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
         access_token = auth_service.create_access_token(
             data={"sub": user.username}, expires_delta=access_token_expires
         )
-        return {"access_token": access_token, "token_type": "Bearer"}
+
+        return {
+            "access_token": access_token,
+            "token_type": "Bearer",
+            "user": {"username": user.username, "email": user.email}
+        }
+
     except SQLAlchemyError as e:
         raise HTTPException(status_code=500, detail="Database error")
 
@@ -86,3 +95,4 @@ async def read_users_profile(request: Request, db: Session = Depends(get_db)):
         raise HTTPException(status_code=401, detail="Invalid token")
     except SQLAlchemyError as e:
         raise HTTPException(status_code=500, detail="Database error")
+    
