@@ -1,0 +1,67 @@
+const chatStyles = {
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        backgroundColor: '#f4f6f9',
+        fontFamily: '"Poppins", sans-serif',
+    },
+    chatBox: {
+        width: '600px',
+        maxWidth: '90%',
+        background: 'white',
+        boxShadow: '0px 4px 10px rgba(0,0,0,0.1)',
+        borderRadius: '10px',
+        padding: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    title: {
+        textAlign: 'center',
+        fontSize: '24px',
+        fontWeight: 'bold',
+        color: '#333',
+        marginBottom: '10px',
+    },
+    textArea: {
+        width: '100%',
+        height: '80px',
+        padding: '10px',
+        fontSize: '16px',
+        borderRadius: '8px',
+        border: '1px solid #ccc',
+        outline: 'none',
+        resize: 'none',
+        marginBottom: '10px',
+    },
+    button: {
+        backgroundColor: '#007BFF',
+        color: '#fff',
+        border: 'none',
+        padding: '12px 20px',
+        fontSize: '16px',
+        borderRadius: '8px',
+        cursor: 'pointer',
+        transition: '0.3s',
+    },
+    buttonDisabled: {
+        backgroundColor: '#ccc',
+        cursor: 'not-allowed',
+    },
+    responseBox: {
+        marginTop: '20px',
+        padding: '15px',
+        backgroundColor: '#f9f9f9',
+        borderRadius: '8px',
+        fontSize: '16px',
+        color: '#333',
+    },
+    errorMessage: {
+        color: 'red',
+        marginTop: '10px',
+    },
+};
+
+export default chatStyles;
